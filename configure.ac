@@ -5,7 +5,7 @@ AC_INIT([solitaire],
         [https://github.com/kisom/solitaire])
 AM_INIT_AUTOMAKE
 AM_SILENT_RULES([yes])
-AM_CONFIG_SRCDIR([src/card.h])
+AC_CONFIG_SRCDIR([src/card.h])
 AC_CHECK_HEADERS
 AC_CONFIG_FILES(doc/Makefile src/Makefile Makefile)
 AC_PROG_CC
