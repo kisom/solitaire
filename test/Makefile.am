@@ -8,7 +8,7 @@ card_test_SOURCES = ../src/card.c card_test.c
 deck_test_SOURCES = ../src/deck.c ../src/card.c deck_test.c
 deckgen_test_SOURCES = ../src/deck.c ../src/card.c ../src/deckgen.c
 pontifex_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c
-soliaire_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c \
+solitaire_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c \
 			../src/solitaire.c
 
 
