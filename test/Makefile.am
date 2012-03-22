@@ -2,13 +2,15 @@ AM_CFLAGS = -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations   \
             -Wredundant-decls -Wnested-externs -Winline -Wno-long-long    \
             -Wstrict-prototypes -g -I../src/ -O0
-
+AM_LDFLAGS = -L/usr/local/lib -lcunit
 check_PROGRAMS = deck_test deckgen_test card_test pontifex_test solitaire_test
 card_test_SOURCES = ../src/card.c card_test.c
 deck_test_SOURCES = ../src/deck.c ../src/card.c deck_test.c
-deckgen_test_SOURCES = ../src/deck.c ../src/card.c ../src/deckgen.c
-pontifex_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c
+deckgen_test_SOURCES = ../src/deck.c ../src/card.c ../src/deckgen.c \
+		       deckgen_test.c
+pontifex_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c \
+			pontifex_test.c
 solitaire_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c \
-			../src/solitaire.c
+			../src/solitaire.c solitaire_test.c
 
 
