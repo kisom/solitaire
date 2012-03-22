@@ -12,3 +12,5 @@ texinfo.tex
 version.texi
 install-sh
 missing
+Makefile
+.deps
