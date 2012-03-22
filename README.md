@@ -34,7 +34,9 @@ with the software. If public domain affords you more freedom, use it.
 
 ## usage
 `deckgen -o <deck_file>`
+
 `solitaire -e msg.txt -o msg.enc -k deck_file`
+
 `solitaire -d msg.enc -o msg.txt -k deck_file`
 
 

@@ -1,0 +1,89 @@
+\input texinfo   @c -*-texinfo-*-
+@setfilename solitaire.info
+@include version.texi
+@settitle solitaire @value{VERSION}
+@syncodeindex pg cp
+@comment %**end of header
+@copying
+This manual is for solitaire, an implementation of Bruce Schneier's 
+Solitaire algorithm (also called Pontifex in the book Cryptonomicon)
+written in C.
+
+Copyright @copyright{} 2012 Kyle Isom <@email{coder@@kyleisom.net}>
+
+@quotation
+This document is released under a dual license. These two licenses are the 
+public domain and a Creative Commons Attribution-ShareAlike 3.0 Unported 
+License. The purpose of this dual-license is to attribute you, the end user,
+to use this documentation for whatever purpose you wish. As such, you, the
+end user, are free to select either license at will.
+
+This document is released into the public domain.
+
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 
+Unported License. To view a copy of this license, visit 
+http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative 
+Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+@end quotation
+@end copying
+
+@dircategory Texinfo documentation system
+@direntry
+* introduction: (intro)Introduction to solitaire
+@end direntry
+
+@titlepage
+@title solitaire
+@subtitle for version @value{VERSION}, @value{UPDATED}
+@author Kyle Isom (@email{coder@@kyleisom.net})
+@page
+@vskip 0pt plus 1filll
+@paragraphindent 0
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top
+@top solitaire
+
+This manual is for solitaire (version @value{VERSION}, @value{UPDATED}).
+@end ifnottex
+
+@menu
+* A Quick Introduction::
+* Manual Copyright::
+* Index::
+@end menu
+
+
+@node A Quick Introduction
+@chapter A Quick Introduction
+
+@pindex intro
+@cindex introduction to @command{solitaire}
+To use solitaire, you must first generate a deck using the @command{deckgen}
+program. To use deckgen, you specify an output file to store the deck as:
+@example
+deckgen kyle-20120322.deck
+@end example
+
+To use the deck for encryption and decryption:
+@example
+solitaire -e msg.txt -o msg.enc -k deck_file
+solitaire -d msg.enc -o msg.txt -k deck_file
+@end example
+
+@node Manual Copyright
+@appendix Manual Copyright
+
+@include cc.texi
+
+@node Index
+@unnumbered Index
+
+@printindex cp
+
+@bye
+
