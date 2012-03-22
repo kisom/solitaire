@@ -1,8 +1,8 @@
 /****************************************************************************
- * file: card.h                                                             *
+ * file: card_test.h                                                        *
  * author: kyle isom <coder@kyleisom.net>                                   *
  *                                                                          *
- * Definition and utility functions for a card in the solitaire cipher.     *
+ * Unit tests for the card implementation.                                  *
  *                                                                          *
  * it is released under an ISC / public domain dual-license; see any of the *
  * header files or the file "LICENSE" (or COPYING) under the project root.  *
@@ -29,49 +29,19 @@
  * with the software. if public domain affords you more freedom, use it.    *
  ****************************************************************************/
 
+#ifndef __SOLITAIRE_CARD_TEST_H
+#define __SOLITAIRE_CARD_TEST_H
 
-#ifndef __SOLITAIRE_CARD_H
-#define __SOLITAIRE_CARD_H
+/* suite declarations */
+int initialise_card_test(void);
+int cleanup_card_test(void);
 
-/* 
- * declarations for various data types
- */
 
-enum SUITE {
-    SPADE,
-    CLUB,
-    HEART,
-    DIAMOND
-};
+/* test declarations */
+void test_card_read(void);
+void test_card_char(void);
 
-enum FACE {
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING,
-    ACE
-};
-
-struct card_s {
-    int suite;
-    int face;
-};
-
-/*
- * function declarations
- */
-
-/* fill a char[3] with a string representation of a card */
-void card_char2(struct card_s, char *);
-struct card_s card_read(char *);
+/* other functions */
+void destroy_test_registry(void);
 
 #endif

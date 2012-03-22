@@ -1,7 +1,7 @@
 AM_CFLAGS = -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations   \
             -Wredundant-decls -Wnested-externs -Winline -Wno-long-long    \
-            -Wconversion -Wstrict-prototypes -g -I../src/ -O0
+            -Wstrict-prototypes -g -I../src/ -O0
 
 check_PROGRAMS = deck_test deckgen_test card_test pontifex_test solitaire_test
 card_test_SOURCES = ../src/card.c card_test.c

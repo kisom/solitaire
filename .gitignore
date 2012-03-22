@@ -14,3 +14,8 @@ install-sh
 missing
 Makefile
 .deps
+*_test
+
+# products
+deckgen
+solitaire
