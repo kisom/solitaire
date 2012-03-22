@@ -1,2 +1,2 @@
-info_TEXINFOS = solitaire.texilibdaemon_TEXINFOS = version.texi cc.texi
+info_TEXINFOS = solitaire.texi
 solitaire_TEXINFOS = version.texi cc.texi
