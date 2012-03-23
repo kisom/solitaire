@@ -11,7 +11,9 @@
 int
 main(int argc, char **argv)
 {
-    // TODO: add code
+    /* TODO: add code */
+    if (argc-- > 1)
+        argv++;
     return 0;
 }
 

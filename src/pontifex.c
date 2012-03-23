@@ -11,4 +11,11 @@
  * header files or the file "LICENSE" (or COPYING) under the project root.  *
  ****************************************************************************/
 
+#include "pontifex.h"
+
+void
+encrypt()
+{
+    return;
+}
 

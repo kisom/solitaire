@@ -32,4 +32,9 @@
  * with the software. if public domain affords you more freedom, use it.    *
  ****************************************************************************/
 
+/*
+ * function declarations
+ */
+
+void encrypt(void);
 
