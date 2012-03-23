@@ -39,7 +39,7 @@ int cleanup_card_test(void);
 
 /* test declarations */
 void test_card_read(void);
-void test_card_char(void);
+void test_card_str(void);
 
 /* other functions */
 void destroy_test_registry(void);

@@ -38,6 +38,7 @@
  */
 
 enum SUITE {
+    INVALID_SUITE = -1,
     SPADE,
     CLUB,
     HEART,
@@ -45,6 +46,7 @@ enum SUITE {
 };
 
 enum FACE {
+    INVALID_FACE = -1,
     ONE,
     TWO,
     THREE,
@@ -58,7 +60,8 @@ enum FACE {
     JACK,
     QUEEN,
     KING,
-    ACE
+    ACE,
+    JOKER
 };
 
 struct card_s {
@@ -71,7 +74,7 @@ struct card_s {
  */
 
 /* fill a char[3] with a string representation of a card */
-void card_char2(struct card_s, char *);
+void card_str(struct card_s, char *);
 struct card_s card_read(char *);
 
 #endif

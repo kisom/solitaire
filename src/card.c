@@ -14,7 +14,7 @@
 #include "card.h"
 
 void 
-card_char2(struct card_s card, char *card_out)
+card_str(struct card_s card, char *card_out)
 {
     card_out[0] = 0x00;
     card_out[1] = 0x00;
@@ -63,12 +63,16 @@ card_char2(struct card_s card, char *card_out)
         case ACE:
             card_out[0] = 'A';
             break;
+        case JOKER:
+            card_out[0] = 'O';
+            break;
         default:
             /* the impossible
              * has happened. call washington,
              * terrorists at work!
              */
-            assert(0);
+            card_out[0] = 0x0;
+            break;
     }
 
     switch (card.suite) {
@@ -89,18 +93,20 @@ card_char2(struct card_s card, char *card_out)
              * this shouldn't ever happen!
              * assert false, debug!
              */
+            card_out[1] = 0x0;
+            break;
             assert(0);
     }
     return;
 }
 
 struct card_s 
-card_read(char *card_str)
+card_read(char *strcard)
 {
     struct card_s card;
-    assert(card_str[2] == 0x00);
+    assert(strcard[2] == 0x00);
 
-    switch (card_str[0]) {
+    switch (strcard[0]) {
         case '1':
             card.face = ONE;
             break;
@@ -143,12 +149,16 @@ card_read(char *card_str)
          case 'A':
             card.face = ACE;
             break;
+        case 'O':
+            card.face = JOKER;
+            break;
          default:
             /* should never happen */
-            assert(0);
+            card.face = INVALID_FACE;
+            break;
     }
 
-    switch (card_str[1]) {
+    switch (strcard[1]) {
         case 'S':
             card.suite = SPADE;
             break;
@@ -163,7 +173,8 @@ card_read(char *card_str)
             break;
         default:
             /* should never happen */
-            assert(0);
+            card.suite = INVALID_SUITE;
+            break;
     }
 
     return card;
