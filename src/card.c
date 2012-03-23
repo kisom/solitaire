@@ -88,6 +88,12 @@ card_str(struct card_s card, char *card_out)
         case DIAMOND:
             card_out[1] = 'D';
             break;
+        case FIRST:
+            card_out[1] = 'A';
+            break;
+        case SECOND:
+            card_out[1] = 'B';
+            break;
         default:
             /* critical alert:
              * this shouldn't ever happen!
@@ -97,6 +103,15 @@ card_str(struct card_s card, char *card_out)
             break;
             assert(0);
     }
+
+    /* make sure the Jokers are treated properly */
+    if (card.face == JOKER && !((card.suite == FIRST) ||
+                                (card.suite == SECOND)))
+        card_out[0] = 0x0;
+
+    if (((card.suite == FIRST) || (card.suite == SECOND)) &&
+        (!card.face == JOKER))
+        card_out[0] = 0x0;
     return;
 }
 

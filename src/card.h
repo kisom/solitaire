@@ -39,15 +39,17 @@
 
 enum SUITE {
     INVALID_SUITE = -1,
-    SPADE,
+    SPADE = 1,
     CLUB,
     HEART,
-    DIAMOND
+    DIAMOND,
+    FIRST,
+    SECOND
 };
 
 enum FACE {
     INVALID_FACE = -1,
-    ONE,
+    ONE = 1,
     TWO,
     THREE,
     FOUR,
