@@ -42,21 +42,19 @@ test_card_read(void)
     struct card_s card;
     struct card_s refcardJH, refcardOS;
     char JH[3] = { 'J', 'H', 0x00 };
-    char OS[3] = { 'O', 'S', 0x00 };
+    char OS[3] = { 'O', 'B', 0x00 };
 
     refcardJH.suite = HEART;
     refcardJH.face = JACK;
 
-    refcardOS.suite = SPADE;
+    refcardOS.suite = SECOND;
     refcardOS.face = JOKER;
     
     card = card_read(JH);
-    CU_ASSERT(refcardJH.suite == card.suite);
-    CU_ASSERT(refcardJH.face == card.face);
+    CU_ASSERT(cards_eq(&refcardJH, &card));
 
     card = card_read(OS);
-    CU_ASSERT(refcardOS.suite == card.suite);
-    CU_ASSERT(refcardOS.face == card.face);
+    CU_ASSERT(cards_eq(&refcardOS, &card));
 }
 
 void
@@ -64,13 +62,13 @@ test_card_str(void)
 {
     struct card_s refcardJH, refcardOS;
     char refJH[3] = { 'J', 'H', 0x00 };
-    char refOS[3] = { 'O', 'S', 0x00 };
+    char refOS[3] = { 'O', 'A', 0x00 };
     char card[3];
 
     refcardJH.suite = HEART;
     refcardJH.face = JACK;
 
-    refcardOS.suite = SPADE;
+    refcardOS.suite = FIRST;
     refcardOS.face = JOKER;
 
     card_str(refcardJH, card);
