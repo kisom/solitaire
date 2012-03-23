@@ -44,7 +44,6 @@ int random_block(char *buffer) {
     FILE *devrandom = NULL;
     char block[RANDOM_BLOCK_SZ];
     int read = 0;
-    int wrote = 0;
 
     devrandom = fopen(DEV_RANDOM, "r");
     if (NULL == devrandom)
