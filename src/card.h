@@ -78,5 +78,8 @@ struct card_s {
 /* fill a char[3] with a string representation of a card */
 void card_str(struct card_s, char *);
 struct card_s card_read(char *);
+int card_is_valid(struct card_s *);
+int card_cmp(struct card_s *, struct card_s *);
+int cards_eq(struct card_s *card1, struct card_s *card2);
 
 #endif

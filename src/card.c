@@ -186,12 +186,98 @@ card_read(char *strcard)
         case 'D':
             card.suite = DIAMOND;
             break;
+        case 'A':
+            card.suite = FIRST;
+            break;
+        case 'B':
+            card.suite = SECOND;
+            break;
         default:
             /* should never happen */
             card.suite = INVALID_SUITE;
             break;
     }
 
+    /* make sure the Jokers are treated properly */
+    if (card.face == JOKER && !((card.suite == FIRST) ||
+                                (card.suite == SECOND))) {
+        card.face = INVALID_FACE;
+        card.suite = INVALID_SUITE;
+    }
+
+    if (((card.suite == FIRST) || (card.suite == SECOND)) &&
+        (!card.face == JOKER)) {
+        card.face = INVALID_FACE;
+        card.suite = INVALID_SUITE;
+    }
+
+
+
     return card;
 }
 
+int 
+card_is_valid(struct card_s *card)
+{
+    int valid = 1;
+    if ((card->face == 0) && (card->face == 0))
+        valid = 0;
+    else if ((card->face == INVALID_FACE) || (card->suite == INVALID_SUITE))
+        valid = 0;
+    else if ((card->face == JOKER) && !((card->suite == FIRST) ||
+                                        (card->suite == SECOND)))
+        valid = 0;
+    else if (((card->suite == FIRST) || (card->suite == SECOND)) &&
+             (card->face != JOKER))
+        valid = 0;
+    else if (!((card->face == ONE)           ||
+               (card->face == TWO)           ||
+               (card->face == THREE)         ||
+               (card->face == FOUR)          ||
+               (card->face == FIVE)          ||
+               (card->face == SIX)           ||
+               (card->face == SEVEN)         ||
+               (card->face == EIGHT)         ||
+               (card->face == NINE)          ||
+               (card->face == TEN)           ||
+               (card->face == JACK)          ||
+               (card->face == QUEEN)         ||
+               (card->face == KING)          ||
+               (card->face == ACE)           ||
+               (card->face == JOKER)))
+        valid = 0;
+    else if (!((card->suite == SPADE)        ||
+               (card->suite == CLUB)         ||
+               (card->suite == HEART)        ||
+               (card->suite == DIAMOND)      ||
+               (card->suite == FIRST)        ||
+               (card->suite == SECOND)))
+        valid = 0;
+    else
+        valid = 1;
+
+    return valid;
+}
+
+int
+card_cmp(struct card_s *card1, struct card_s *card2)
+{
+    int match = 0;
+    if (card1->face > card2->face)
+        match = 1;
+    else if (card1->face < card2->face)
+        match = -1;
+    return match;
+}
+
+int
+cards_eq(struct card_s *card1, struct card_s *card2)
+{
+    int match = 1;
+    if (card1->face != card2->face)
+        match = 0;
+    else if (card1->suite != card2->suite)
+        match = 0;
+
+    return match;
+}
