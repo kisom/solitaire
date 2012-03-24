@@ -3,7 +3,7 @@ AC_INIT([solitaire],
         [0.1.0-pre],
         [coder@kyleisom.net], [],
         [https://github.com/kisom/solitaire])
-AM_INIT_AUTOMAKE([1.11 foreign no-define])
+AM_INIT_AUTOMAKE([1.11 foreign no-define color-tests parallel-tests])
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/card.h])
 AC_CHECK_HEADERS
