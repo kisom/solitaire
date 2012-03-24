@@ -130,6 +130,10 @@ test_deck_seek(void)
     position = deck_seek(&deck1, &card);
     CU_ASSERT(12 == position);
     CU_ASSERT(deck_is_valid(&deck1));
+
+    card = card_read((char *)"OB");
+    position = deck_seek(&deck1, &card);
+    CU_ASSERT((DECK_SIZE - 1) == position);
 }
 
 /*
