@@ -8,6 +8,7 @@
  * header files or the file "LICENSE" (or COPYING) under the project root.  *
  ****************************************************************************/
 
+#include <err.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -53,7 +54,7 @@ int random_block(char *buffer) {
     strncpy(buffer, block, read);
 
     if (! 0 == fclose(devrandom))
-        fprintf(stderr, "Error closing %s!\n", DEV_RANDOM);
+        warnx("Error closing %s!", DEV_RANDOM);
 
     return read;
  }
@@ -69,11 +70,10 @@ char random_byte() {
 
     read = fread(&byte, sizeof(byte), 1, devrandom);
     if (read != 1)
-        fprintf(stderr, "*** WARNING: invalid read size from %s\n",
-                DEV_RANDOM);
+        warnx("*** WARNING: invalid read size from %s", DEV_RANDOM);
 
     if (! 0 == fclose(devrandom))
-        fprintf(stderr, "Error closing %s!\n", DEV_RANDOM);
+        warnx("Error closing %s!", DEV_RANDOM);
     return byte;
 }
 

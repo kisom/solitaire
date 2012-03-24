@@ -70,7 +70,7 @@ load_deck_from_file(char *filename)
     buf_head = NULL;
 
     if (!deck_is_valid(deck)) {
-        warn("invalid deck!\n");
+        warnx("invalid deck!");
         free(deck);
         deck = NULL;
     }

@@ -79,7 +79,7 @@ deck_is_valid(struct std_deck *deck)
 
     for (i = 0; i < DECK_SIZE; i++) {
         if (!card_is_valid(&deck->cards[i])) {
-            warn("invalid card!\n");
+            warnx("invalid card!");
             valid = 0;
             break;
         }
