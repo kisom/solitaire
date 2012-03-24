@@ -108,9 +108,12 @@ test_shift_down()
 
     deck1 = build_new_deck();
     card = card_read((char *)"2S");
-    deck_shift_down(&deck1, 0);
+    deck_shift_down(&deck1, 0, 1);
 
     CU_ASSERT(cards_eq(&card, &deck1.cards[1]));
+
+    deck_shift_down(&deck, 1, 2);
+    CU_ASSERT(cards_eq(&card, &deck1.cards[3]));
 }
 
 
