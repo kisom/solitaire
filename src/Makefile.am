@@ -2,6 +2,7 @@ AM_CFLAGS = -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations   \
             -Wredundant-decls -Wnested-externs -Winline -Wno-long-long    \
             -Wstrict-prototypes -Werror -g -O0
+AUTOMAKE_OPTIONS = std-options
 include_HEADERS = *.h
 bin_PROGRAMS = deckgen solitaire
 deckgen_SOURCES = deck.c card.c deckgen.c util.c
