@@ -12,7 +12,7 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
-/*#include <unistd.h>*/
+#include <sysexits.h>
 
 #include "card.h"
 #include "deck.h"
@@ -113,7 +113,7 @@ deckgen_usage()
     printf("\n\n\tfilename\t\tthe filename to store the deck to.\n");
     printf("\n\tReport bugs to: %s", PACKAGE_BUGREPORT);
     printf("\n\t%s's homepage: %s\n", PACKAGE_NAME, PACKAGE_URL);
-    exit(EXIT_SUCCESS);
+    exit(EX_USAGE);
 }
 
 void 
@@ -123,5 +123,5 @@ deckgen_version()
     printf("%s\n", PACKAGE_COPYRIGHT);
     printf("%s %s\n", PACKAGE_LICENSE, PACKAGE_LICENSE_URL);
 
-    exit(EXIT_SUCCESS);
+    exit(EX_USAGE);
 }
