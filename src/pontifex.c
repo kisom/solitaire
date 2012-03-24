@@ -94,7 +94,7 @@ card_value(struct card_s *card)
     if (card->face == JOKER)
         val = 0;
     else if ((card->suite == HEART) || (card->suite == DIAMOND))
-        val = card->face * 2;
+        val = card->face + 13;
     else
         val = card->face;
 
