@@ -111,9 +111,11 @@ test_shift_down()
     deck_shift_down(&deck1, 0, 1);
 
     CU_ASSERT(cards_eq(&card, &deck1.cards[1]));
+    CU_ASSERT(deck_is_valid(&deck1));
 
     deck_shift_down(&deck1, 1, 2);
     CU_ASSERT(cards_eq(&card, &deck1.cards[3]));
+    CU_ASSERT(deck_is_valid(&deck1));
 }
 
 
