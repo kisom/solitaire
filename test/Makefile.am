@@ -1,8 +1,9 @@
 AM_CFLAGS = -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations   \
             -Wredundant-decls -Wnested-externs -Winline -Wno-long-long    \
-            -Wstrict-prototypes -Werror -g -I../src/ -O0
-AM_LDFLAGS = -L/usr/local/lib -lcunit
+            -Wstrict-prototypes -Werror -fprofile-arcs -ftest-coverage    \
+	    -fprofile-generate -g -I../src/ -p -pg -O0
+AM_LDFLAGS = -fprofile-arcs -ftest-coverage -L/usr/local/lib -lcunit -lgcov
 pontifex_test_CFLAGS = -DPONTIFEX_TEST_VECTORS=\"@abs_builddir@/vectors\"
 include_HEADERS = *.h
 check_PROGRAMS = deck_test card_test pontifex_test
