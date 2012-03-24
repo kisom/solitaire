@@ -25,16 +25,17 @@ build_new_deck() {
 
 void shuffle_round(struct std_deck *deck) {
     struct card_s temporary_card;
-    int i;
+    int i, j;
     int swap_position;
 
-    for (i = 0; i < DECK_SIZE; ++i) {
-        swap_position = ((int)random_byte() % DECK_SIZE - 1);
-        temporary_card = deck->cards[i];
-        deck->cards[i] = deck->cards[swap_position];
-        deck->cards[swap_position] = temporary_card;
+    for (j = 0; j < 3; ++j) {
+        for (i = 0; i < DECK_SIZE; ++i) {
+            swap_position = ((int)random_byte() % DECK_SIZE);
+            temporary_card = deck->cards[i];
+            deck->cards[i] = deck->cards[swap_position];
+            deck->cards[swap_position] = temporary_card;
+        }
     }
-
 }
 void shuffle(struct std_deck *deck, int rounds) {
     int i = 0;
