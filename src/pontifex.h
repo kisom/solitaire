@@ -32,9 +32,16 @@
  * with the software. if public domain affords you more freedom, use it.    *
  ****************************************************************************/
 
+#ifndef __SOLITAIRE_PONTIFEX_H
+#define __SOLITAIRE_PONTIFEX_H
+
+#include "card.h"
+#include "deck.h"
+
 /*
  * function declarations
  */
 
-void encrypt(void);
+struct std_deck *load_deck_from_file(char *);
 
+#endif
