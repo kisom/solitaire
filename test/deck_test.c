@@ -60,6 +60,26 @@ test_shuffle_round()
     CU_ASSERT(runs == 0);
 }
 
+void
+test_deck_pop()
+{
+    int i;
+    struct card_s card;
+    struct std_deck deck1, deck2;
+
+    deck1 = build_new_deck();
+    shuffle(&deck1, 3);
+
+    for (i = 0; i < DECK_SIZE; ++i)
+        deck2.cards[i] = deck1.cards[i];
+
+    for (i = 0; i < (DECK_SIZE - 1); ++i) {
+        card = deck_pop(&deck1);
+        CU_ASSERT(cards_eq(&card, &deck2.cards[i]));
+        CU_ASSERT(cards_eq(&deck1.cards[0], &deck2.cards[i + 1]));
+    }
+}
+
 /*
  * suite set up functions
  * as of now, the card doesn't require any fancy set up
@@ -108,7 +128,9 @@ main(void)
                             test_shuffle_round))
         destroy_test_registry();
 
-
+    if (NULL == CU_add_test(deck_suite, "test of deck_pop", 
+                            test_deck_pop))
+        destroy_test_registry();
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();

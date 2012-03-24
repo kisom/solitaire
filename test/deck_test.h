@@ -40,6 +40,7 @@ int cleanup_card_test(void);
 /* test declarations */
 void test_create_deck(void);
 void test_shuffle_round(void);
+void test_deck_pop(void);
 
 /* other functions */
 void destroy_test_registry(void);
