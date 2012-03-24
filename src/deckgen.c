@@ -69,6 +69,8 @@ main(int argc, char **argv)
     printf("getting a new deck and shuffing %d times...\n", rounds);
     deck = build_new_deck();
     shuffle(&deck, rounds);
+    printf("DECK:\n-----\n");
+    dump_deck(&deck);
 
     retcode = store_deck(&deck, filename);
 
@@ -90,6 +92,8 @@ store_deck(struct std_deck *deck, char *filename)
     }
 
     for (i = 0; i < DECK_SIZE; ++i) {
+        card[0] = 0x0;
+        card[1] = 0x0;
         card_str(deck->cards[i], card);
         fprintf(fstream, "%s\n", card);
     }
