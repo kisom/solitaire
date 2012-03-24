@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "deckgen.h"
 #include "card.h"
 #include "deck.h"
 
