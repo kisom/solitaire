@@ -101,15 +101,14 @@ test_deck_pop()
 
 /*
  * suite set up functions
- * as of now, the card doesn't require any fancy set up
  */
-int initialise_card_test() 
+int initialise_deck_test() 
 { 
     return 0; 
 }
 
 int 
-cleanup_card_test() 
+cleanup_deck_test() 
 { 
     return 0; 
 }
@@ -124,8 +123,9 @@ int
 main(void)
 {
     CU_pSuite deck_suite = NULL;
+    unsigned int fails = 0;
 
-    printf("starting tests for card...\n");
+    printf("starting tests for deck...\n");
 
     if (! CUE_SUCCESS == CU_initialize_registry()) {
         fprintf(stderr, "error initialising CUnit test registry!\n");
@@ -133,8 +133,8 @@ main(void)
     }
 
     /* set up the suite */
-    deck_suite = CU_add_suite("deck_tests", initialise_card_test,
-                                            cleanup_card_test);
+    deck_suite = CU_add_suite("deck_tests", initialise_deck_test,
+                                            cleanup_deck_test);
     if (NULL == deck_suite)
         destroy_test_registry();
 
@@ -153,10 +153,9 @@ main(void)
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
+    fails = CU_get_number_of_tests_failed();
 
-    destroy_test_registry();
-
-    /* should never get here! */
-    return EXIT_FAILURE;
+    CU_cleanup_registry();
+    return fails;
 }
 

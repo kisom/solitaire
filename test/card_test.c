@@ -88,6 +88,7 @@ int
 main(void)
 {
     CU_pSuite card_suite = NULL;
+    unsigned int fails = 0;
 
     printf("starting tests for card...\n");
 
@@ -112,10 +113,11 @@ main(void)
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
+    fails = CU_get_number_of_tests_failed();
 
-    destroy_test_registry();
+    CU_cleanup_registry();
 
     /* should never get here! */
-    return EXIT_FAILURE;
+    return fails;
 }
 

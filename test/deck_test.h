@@ -1,5 +1,5 @@
 /****************************************************************************
- * file: card_test.h                                                        *
+ * file: deck_test.h                                                        *
  * author: kyle isom <coder@kyleisom.net>                                   *
  *                                                                          *
  * Unit tests for the card implementation.                                  *
@@ -29,8 +29,8 @@
  * with the software. if public domain affords you more freedom, use it.    *
  ****************************************************************************/
 
-#ifndef __SOLITAIRE_CARD_TEST_H
-#define __SOLITAIRE_CARD_TEST_H
+#ifndef __SOLITAIRE_deck_test_H
+#define __SOLITAIRE_deck_test_H
 
 /*
  * default composition of a new deck
@@ -44,8 +44,8 @@ static char new_deck[54][3] = {
 };
 
 /* suite declarations */
-int initialise_card_test(void);
-int cleanup_card_test(void);
+int initialise_deck_test(void);
+int cleanup_deck_test(void);
 
 
 /* test declarations */
