@@ -109,7 +109,7 @@ deck_pop(struct std_deck *deck)
     for (i = 0; i < (DECK_SIZE - 1); ++i)
         deck->cards[i] = deck->cards[i + 1];
     
-    deck->cards[DECK_SIZE] = top_card;
+    deck->cards[DECK_SIZE - 1] = top_card;
 
     return top_card;
 }
