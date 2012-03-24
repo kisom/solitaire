@@ -40,4 +40,6 @@ with the software. If public domain affords you more freedom, use it.
 `solitaire -d msg.enc -o msg.txt -k deck_file`
 
 
+## dependencies
+The unit tests rely on [CUnit](http://cunit.sourceforge.net/).
 
