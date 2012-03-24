@@ -21,9 +21,6 @@ card_str(struct card_s card, char *card_out)
     card_out[2] = 0x00;
 
     switch (card.face) {
-        case ONE:
-            card_out[0] = '1';
-            break;
         case TWO:
             card_out[0] = '2';
             break;
@@ -122,9 +119,6 @@ card_read(char *strcard)
     assert(strcard[2] == 0x00);
 
     switch (strcard[0]) {
-        case '1':
-            card.face = ONE;
-            break;
         case '2':
             card.face = TWO;
             break;
@@ -230,8 +224,7 @@ card_is_valid(struct card_s *card)
     else if (((card->suite == FIRST) || (card->suite == SECOND)) &&
              (card->face != JOKER))
         valid = 0;
-    else if (!((card->face == ONE)           ||
-               (card->face == TWO)           ||
+    else if (!((card->face == TWO)           ||
                (card->face == THREE)         ||
                (card->face == FOUR)          ||
                (card->face == FIVE)          ||

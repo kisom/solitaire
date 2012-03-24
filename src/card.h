@@ -49,7 +49,7 @@ enum SUITE {
 
 enum FACE {
     INVALID_FACE = -1,
-    ONE = 1,
+    ACE = 1,
     TWO,
     THREE,
     FOUR,
@@ -62,7 +62,6 @@ enum FACE {
     JACK,
     QUEEN,
     KING,
-    ACE,
     JOKER
 };
 
