@@ -44,8 +44,9 @@
 
 struct std_deck *load_deck_from_file(char *);
 int card_value(struct card_s *);
-void round1(struct std_deck *);
-void round2(struct std_deck *);
+void pontifex_round1(struct std_deck *);
+void pontifex_round2(struct std_deck *);
+void pontifex_round3(struct std_deck *);
 
 
 #endif

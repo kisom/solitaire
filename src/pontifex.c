@@ -101,19 +101,32 @@ card_value(struct card_s *card)
     return val;
 }
 
+/*
+ * Find the A joker. Move it one card down. (That is, swap it with the card 
+ * beneath it.)
+ */
 void
-round1(struct std_deck *deck)
+pontifex_round1(struct std_deck *deck)
 {
     struct card_s joker;
-    int position;
+    int position, shift_by;
         
     joker = card_read((char *)"OA");
     position = deck_seek(deck, &joker);
-    deck_shift_down(deck, position, 1);
+    if ((DECK_SIZE - 1) == position)
+        shift_by = 2;
+    else
+        shift_by = 1;
+    deck_shift_down(deck, position, shift_by);
 }
 
+/*
+ * Find the B joker. Move it two cards down. If the joker is the bottom card 
+ * of the deck, move it just below the second card. If the joker is one up 
+ * from the bottom card, move it just below the top card.
+ */
 void
-round2(struct std_deck *deck)
+pontifex_round2(struct std_deck *deck)
 {
     struct card_s joker;
     int position;
@@ -123,3 +136,50 @@ round2(struct std_deck *deck)
     deck_shift_down(deck, position, 2);
 }
 
+/*
+ * Perform a triple cut. That is, swap the cards above the first joker with 
+ * the cards below the second joker.
+ */
+void
+pontifex_round3(struct std_deck *deck)
+{
+    struct std_deck cut_deck;
+    struct card_s card, joker1, joker2;
+    int i, joker1pos, joker2pos, deck_position;
+    int above, below;
+
+    joker1 = card_read((char *)"OA");
+    joker2 = card_read((char *)"OB");
+    joker1pos = deck_seek(deck, &joker1);
+    joker2pos = deck_seek(deck, &joker2);
+
+    /* if little joker is below big joker need to shift some things around */
+    if (joker1pos > joker2pos) {
+        above = joker2pos;
+        below = joker1pos;
+        card  = joker1;
+        joker1 = joker2;
+        joker2 = card;
+        deck_position = joker1pos;
+        joker1pos = joker2pos;
+        joker2pos = deck_position;
+    } else {
+        above = joker1pos;
+        below = joker2pos;
+    }
+
+    deck_position = 0;
+    for (i = below + 1; i < DECK_SIZE; ++i)
+        cut_deck.cards[deck_position++] = deck->cards[i];
+
+    cut_deck.cards[deck_position++] = deck->cards[above];
+    for (i = above + 1; i < below; ++i)
+        cut_deck.cards[deck_position++] = deck->cards[i];
+
+    cut_deck.cards[deck_position++] = deck->cards[below];
+    for (i = 0; i < above; ++i)
+        cut_deck.cards[deck_position++] = deck->cards[i];
+
+    for (i = 0; i < DECK_SIZE; ++i)
+        deck->cards[i] = cut_deck.cards[i];
+}
