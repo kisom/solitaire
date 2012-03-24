@@ -10,4 +10,4 @@ card_test_SOURCES = ../src/card.c card_test.c
 deck_test_SOURCES = ../src/deck.c ../src/card.c ../src/util.c deck_test.c
 pontifex_test_SOURCES = ../src/card.c ../src/deck.c ../src/pontifex.c \
 			../src/util.c pontifex_test.c
-
+dist_noinst_DATA = vectors/*
