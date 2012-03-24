@@ -32,9 +32,6 @@
 #ifndef __SOLITAIRE_CARD_TEST_H
 #define __SOLITAIRE_CARD_TEST_H
 
-/* maximum number of cards that can be the same in the deck */
-#define MAX_DECK_RUNS       3
-
 /* suite declarations */
 int initialise_card_test(void);
 int cleanup_card_test(void);

@@ -57,7 +57,7 @@ test_shuffle_round()
             runs++;
     }
     
-    CU_ASSERT(runs < MAX_DECK_RUNS);
+    CU_ASSERT(runs == 0);
 }
 
 /*
