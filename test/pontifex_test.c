@@ -43,15 +43,15 @@ test_load_deck()
 void
 test_card_value()
 {
-    struct card_s card10 = card_read("0S");
-    struct card_s card16 = card_read("3D");
-    struct card_s card05 = card_read("5S");
-    struct card_s card02 = card_read("2C");
-    struct card_s card14 = card_read("AD");
-    struct card_s card20 = card_read("7H");
-    struct card_s card00 = card_read("OA");
-    struct card_s card19 = card_read("6D");
-    struct card_s cardNO = card_read("FF");
+    struct card_s card10 = card_read((char *)"0S");
+    struct card_s card16 = card_read((char *)"3D");
+    struct card_s card05 = card_read((char *)"5S");
+    struct card_s card02 = card_read((char *)"2C");
+    struct card_s card14 = card_read((char *)"AD");
+    struct card_s card20 = card_read((char *)"7H");
+    struct card_s card00 = card_read((char *)"OA");
+    struct card_s card19 = card_read((char *)"6D");
+    struct card_s cardNO = card_read((char *)"FF");
 
     CU_ASSERT(10 == card_value(&card10));
     CU_ASSERT(16 == card_value(&card16));
