@@ -1,6 +1,6 @@
 AC_PREREQ([2.50])
 AC_INIT([solitaire],
-        [0.2.0-pre],
+        [0.3.0],
         [coder@kyleisom.net], [],
         [https://github.com/kisom/solitaire])
 AM_INIT_AUTOMAKE([1.11 foreign no-define color-tests parallel-tests])
