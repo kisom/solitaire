@@ -40,7 +40,7 @@ deck_seek(struct std_deck *deck, struct card_s *card)
     int position = 0;
     
     while (! cards_eq(&deck->cards[position], card))
-        position++;
+        position = (position + 1) % DECK_SIZE;
 
     return position;
 }
@@ -123,7 +123,8 @@ deck_shift_down(struct std_deck *deck, int position, int places)
 
     for (i = 0; i < places; ++i) {
         deck->cards[position] = deck->cards[position + 1];
-        deck->cards[++position] = card;
+        position = (position + 1) % DECK_SIZE;
+        deck->cards[position] = card;
     }
 }
 
