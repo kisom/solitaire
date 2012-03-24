@@ -104,13 +104,16 @@ deck_pop(struct std_deck *deck)
 }
 
 void
-deck_shift_down(struct std_deck *deck, int position)
+deck_shift_down(struct std_deck *deck, int position, int places)
 {
     struct card_s card;
+    int i;
     card = deck->cards[position];
 
-    deck->cards[position] = deck->cards[position + 1];
-    deck->cards[position + 1] = card;
+    for (i = 0; i < places; ++i) {
+        deck->cards[position] = deck->cards[position + 1];
+        deck->cards[++position] = card;
+    }
 }
 
 void

@@ -55,7 +55,7 @@ void shuffle(struct std_deck*, int);
 int deck_is_valid(struct std_deck *);
 
 struct card_s deck_pop(struct std_deck *);
-void deck_shift_down(struct std_deck *, int);
+void deck_shift_down(struct std_deck *, int, int);
 void dump_deck(struct std_deck *);
 
 #endif
