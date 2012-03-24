@@ -30,7 +30,7 @@ test_load_deck()
     int ret;
 
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test1.deck");
-    deck1 =load_deck_from_file(test_deck1);
+    deck1 = load_deck_from_file(test_deck1);
     CU_ASSERT(deck_is_valid(deck1));
 
     free(deck1);
@@ -62,6 +62,179 @@ test_card_value()
     CU_ASSERT( 0 == card_value(&card00));
     CU_ASSERT(19 == card_value(&card19));
     CU_ASSERT(-1 == card_value(&cardNO));
+}
+
+void 
+test_round1()
+{
+    struct std_deck *deck1;
+    struct card_s joker;
+    char *test_deck1 = NULL;
+    int ret, jokerpos;
+
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test2.deck");
+    deck1 = load_deck_from_file(test_deck1);
+    CU_ASSERT(deck_is_valid(deck1));
+
+    joker = card_read((char *)"OA");
+    jokerpos = deck_seek(deck1, &joker);
+    CU_ASSERT(50 == jokerpos);
+
+    pontifex_round1(deck1);
+    jokerpos = deck_seek(deck1, &joker);
+    CU_ASSERT(51 == jokerpos);
+
+    CU_ASSERT(deck_is_valid(deck1));
+
+    free(deck1);
+    free(test_deck1);
+    deck1 = NULL;
+    test_deck1 = NULL;
+    return;
+}
+
+void 
+test_round2()
+{
+    struct std_deck *deck1;
+    struct card_s joker;
+    char *test_deck1 = NULL;
+    int ret, jokerpos;
+
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test2.deck");
+    deck1 = load_deck_from_file(test_deck1);
+    CU_ASSERT(deck_is_valid(deck1));
+
+    joker = card_read((char *)"OB");
+    jokerpos = deck_seek(deck1, &joker);
+    CU_ASSERT(7 == jokerpos);
+
+    pontifex_round2(deck1);
+    jokerpos = deck_seek(deck1, &joker);
+    CU_ASSERT(9 == jokerpos);
+
+    CU_ASSERT(deck_is_valid(deck1));
+
+    free(deck1);
+    free(test_deck1);
+    deck1 = NULL;
+    test_deck1 = NULL;
+    return;
+}
+
+void 
+test_round3_little_high()
+{
+    struct std_deck *deck1, *deck2;
+    struct card_s little_joker, big_joker;
+    char *test_deck1 = NULL;
+    char *test_deck2 = NULL;
+    int i, fails, ret, joker1pos, joker2pos;
+
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test3.deck");
+    deck1 = load_deck_from_file(test_deck1);
+    CU_ASSERT(deck_is_valid(deck1));
+
+    ret = asprintf(&test_deck2, "%s/%s", PONTIFEX_TEST_VECTORS, "test3b.deck");
+    deck2 = load_deck_from_file(test_deck2);
+    CU_ASSERT(deck_is_valid(deck2));
+
+    little_joker = card_read((char *)"OA");
+    big_joker = card_read((char *)"OB");
+
+    pontifex_round3(deck1);
+    joker1pos = deck_seek(deck1, &little_joker);
+    joker2pos = deck_seek(deck2, &little_joker);
+    CU_ASSERT(joker1pos == joker2pos);
+
+    joker1pos = deck_seek(deck1, &big_joker);
+    joker2pos = deck_seek(deck2, &big_joker);
+    CU_ASSERT(joker1pos == joker2pos);
+
+    CU_ASSERT(deck_is_valid(deck1));
+    fails = 0;
+    for (i = 0; i < DECK_SIZE; ++i) {
+        if (!cards_eq(&deck1->cards[i], &deck2->cards[i]))
+            fails++;
+        CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
+    }
+
+    if (fails > 0) {
+        printf("\n");
+        dump_deck(deck1);
+        printf("\n");
+        dump_deck(deck2);
+    }
+
+
+    free(deck1);
+    free(deck2);
+    free(test_deck1);
+    free(test_deck2);
+    deck1 = NULL;
+    deck2 = NULL;
+    test_deck1 = NULL;
+    test_deck2 = NULL;
+    return;
+}
+
+
+
+
+void 
+test_round3_big_high()
+{
+    struct std_deck *deck1, *deck2;
+    struct card_s little_joker, big_joker;
+    char *test_deck1 = NULL;
+    char *test_deck2 = NULL;
+    int i, fails, ret, joker1pos, joker2pos;
+
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test2.deck");
+    deck1 = load_deck_from_file(test_deck1);
+    CU_ASSERT(deck_is_valid(deck1));
+
+    ret = asprintf(&test_deck2, "%s/%s", PONTIFEX_TEST_VECTORS, "test2b.deck");
+    deck2 = load_deck_from_file(test_deck2);
+    CU_ASSERT(deck_is_valid(deck2));
+
+    little_joker = card_read((char *)"OA");
+    big_joker = card_read((char *)"OB");
+
+    pontifex_round3(deck1);
+    joker1pos = deck_seek(deck1, &little_joker);
+    joker2pos = deck_seek(deck2, &little_joker);
+    CU_ASSERT(joker1pos == joker2pos);
+
+    joker1pos = deck_seek(deck1, &big_joker);
+    joker2pos = deck_seek(deck2, &big_joker);
+    CU_ASSERT(joker1pos == joker2pos);
+
+    CU_ASSERT(deck_is_valid(deck1));
+    fails = 0;
+    for (i = 0; i < DECK_SIZE; ++i) {
+        if (!cards_eq(&deck1->cards[i], &deck2->cards[i]))
+            fails++;
+        CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
+    }
+
+    if (fails > 0) {
+        printf("\n");
+        dump_deck(deck1);
+        printf("\n");
+        dump_deck(deck2);
+    }
+
+
+    free(deck1);
+    free(deck2);
+    free(test_deck1);
+    free(test_deck2);
+    deck1 = NULL;
+    deck2 = NULL;
+    test_deck1 = NULL;
+    test_deck2 = NULL;
+    return;
 }
 
 /*
@@ -110,6 +283,20 @@ main(void)
 
     if (NULL == CU_add_test(pontifex_suite, "test of card value", 
                             test_card_value))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test round1", test_round1))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test round2", test_round2))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test round3 / little high", 
+                            test_round3_little_high))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test round3 / big high", 
+                            test_round3_big_high))
         destroy_test_registry();
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
