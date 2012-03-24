@@ -79,6 +79,7 @@ test_shuffle_rounds()
     CU_ASSERT(runs < (0.10 * (double)DECK_SIZE));
 }
 
+
 void
 test_deck_pop()
 {
@@ -98,6 +99,20 @@ test_deck_pop()
         CU_ASSERT(cards_eq(&deck1.cards[0], &deck2.cards[i + 1]));
     }
 }
+
+void 
+test_shift_down()
+{
+    struct std_deck deck1;
+    struct card_s card;
+
+    deck1 = build_new_deck();
+    card = card_read((char *)"2S");
+    deck_shift_down(&deck1, 0);
+
+    CU_ASSERT(cards_eq(&card, &deck1.cards[1]));
+}
+
 
 /*
  * suite set up functions
@@ -149,6 +164,10 @@ main(void)
 
     if (NULL == CU_add_test(deck_suite, "test of deck_pop", 
                             test_deck_pop))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(deck_suite, "test of deck_shift_down",
+                           test_shift_down))
         destroy_test_registry();
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
