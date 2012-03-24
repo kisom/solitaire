@@ -41,8 +41,10 @@ void shuffle_round(struct std_deck *deck) {
 
     for (j = 0; j < 3; ++j) {
         for (i = 0; i < DECK_SIZE; ++i) {
-            swap_position = ((int)random_byte() % DECK_SIZE);
+            swap_position = abs((int)random_byte() % DECK_SIZE);
             temporary_card = deck->cards[i];
+            if (cards_eq(&temporary_card, &deck->cards[swap_position]))
+                continue;
             deck->cards[i] = deck->cards[swap_position];
             deck->cards[swap_position] = temporary_card;
         }
@@ -66,6 +68,7 @@ deck_is_valid(struct std_deck *deck)
 
     for (i = 0; i < DECK_SIZE; i++) {
         if (!card_is_valid(&deck->cards[i])) {
+            warn("invalid card!\n");
             valid = 0;
             break;
         }
@@ -81,6 +84,7 @@ deck_is_valid(struct std_deck *deck)
             break;
         }
     }
+
     return valid;
 }
 
