@@ -33,7 +33,11 @@
 #ifndef __SOLITAIRE_UTIL_H
 #define __SOLITAIRE_UTIL_H
 
-#define     DEV_RANDOM      "/dev/random"
+/*
+ * set DEV_URANDOM to mostly secure to expedite testing
+ * TODO: change to /dev/random for release
+ */
+#define     DEV_RANDOM      "/dev/urandom"
 #define     RANDOM_BLOCK_SZ 0x10
 
 /* 
