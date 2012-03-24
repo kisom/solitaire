@@ -118,12 +118,13 @@ void
 deck_shift_down(struct std_deck *deck, int position, int places)
 {
     struct card_s card;
-    int i;
+    int i, shift_position;
     card = deck->cards[position];
 
     for (i = 0; i < places; ++i) {
-        deck->cards[position] = deck->cards[position + 1];
-        position = (position + 1) % DECK_SIZE;
+        shift_position = (position + 1) % DECK_SIZE;
+        deck->cards[position] = deck->cards[shift_position];
+        position = shift_position;
         deck->cards[position] = card;
     }
 }
