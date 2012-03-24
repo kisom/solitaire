@@ -112,7 +112,7 @@ test_shift_down()
 
     CU_ASSERT(cards_eq(&card, &deck1.cards[1]));
 
-    deck_shift_down(&deck, 1, 2);
+    deck_shift_down(&deck1, 1, 2);
     CU_ASSERT(cards_eq(&card, &deck1.cards[3]));
 }
 
