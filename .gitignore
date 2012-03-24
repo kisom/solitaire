@@ -19,3 +19,5 @@ Makefile
 # products
 deckgen
 solitaire
+*.log   # from make check
+*.dat   # from deckgen
