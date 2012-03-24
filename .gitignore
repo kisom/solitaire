@@ -7,7 +7,7 @@ configure
 depcomp
 *.info
 mdate-sh
-stamp-vti
+stamp-*
 texinfo.tex
 version.texi
 install-sh
@@ -19,5 +19,10 @@ Makefile
 # products
 deckgen
 solitaire
-*.log   # from make check
-*.dat   # from deckgen
+
+# *.log is output from make check
+*.log
+
+# *.dat and *.deck are sample extensions for deckgen
+*.dat
+*.deck
