@@ -29,4 +29,9 @@
  * with the software. if public domain affords you more freedom, use it.    *
  ****************************************************************************/
 
+#ifndef __SOLITAIRE_DECKGEN_H
+#define __SOLITAIRE_DECKGEN_H
 
+#include "deck.h"
+
+#endif
