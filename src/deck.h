@@ -62,4 +62,6 @@ void shuffle_round(struct std_deck*);
 void shuffle(struct std_deck*, int); 
 int deck_is_valid(struct std_deck *);
 
+struct card_s deck_pop(struct std_deck *);
+
 #endif

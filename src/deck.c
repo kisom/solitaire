@@ -72,3 +72,15 @@ deck_is_valid(struct std_deck *deck)
     }
     return valid;
 }
+
+struct card_s 
+deck_pop(struct std_deck *deck)
+{
+    struct card_s top_card;
+    int i = 0;
+
+    top_card = deck->cards[i];
+
+    return top_card;
+}
+
