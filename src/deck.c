@@ -9,6 +9,9 @@
  * header files or the file "LICENSE" (or COPYING) under the project root.  *
  ****************************************************************************/
 
+#include <err.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "deck.h"
 #include "util.h"
 
@@ -96,3 +99,18 @@ deck_pop(struct std_deck *deck)
     return top_card;
 }
 
+void
+dump_deck(struct std_deck *deck)
+{
+    int i;
+    char card[3];
+
+    printf(" 0: ");
+    for (i = 1; i <= DECK_SIZE; ++i) {
+        card_str(deck->cards[i - 1], card);
+        printf("%s, ", card);
+        if (0 == (i % 10))
+            printf("\n%d: ", i);
+    }
+    printf("\n");
+}
