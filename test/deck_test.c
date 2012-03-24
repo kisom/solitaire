@@ -118,6 +118,19 @@ test_shift_down()
     CU_ASSERT(deck_is_valid(&deck1));
 }
 
+void 
+test_deck_seek(void)
+{
+    struct std_deck deck1;
+    struct card_s card;
+    int position = 0;
+
+    deck1 = build_new_deck();
+    card = card_read((char *)"2C");
+    position = deck_seek(&deck1, &card);
+    CU_ASSERT(12 == position);
+    CU_ASSERT(deck_is_valid(&deck1));
+}
 
 /*
  * suite set up functions
