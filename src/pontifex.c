@@ -84,3 +84,21 @@ destroy_ptr(void *ptr)
     free(ptr);
     ptr = NULL;
 }
+
+int 
+card_value(struct card_s *card)
+{
+    int val = 0;
+    if (!card_is_valid(card))
+        val = -1;
+    if (card->face == JOKER)
+        val = 0;
+    else if ((card->suite == HEART) || (card->suite == DIAMOND))
+        val = card->face * 2;
+    else
+        val = card->face;
+
+    printf("card value: %d\n", val);
+    return val;
+}
+

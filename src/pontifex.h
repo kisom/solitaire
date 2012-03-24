@@ -43,5 +43,6 @@
  */
 
 struct std_deck *load_deck_from_file(char *);
+int card_value(struct card_s *);
 
 #endif
