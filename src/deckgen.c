@@ -115,8 +115,8 @@ deckgen_usage()
     printf("shuffle the deck\n");
     printf("\t--version, -v\t\tshow the version, author, and license\n");
     printf("\n\n\tfilename\t\tthe filename to store the deck to.\n");
-    printf("\n\tReport bugs to: %s", PACKAGE_BUGREPORT);
-    printf("\n\t%s's homepage: %s\n", PACKAGE_NAME, PACKAGE_URL);
+    printf("\nReport bugs to: %s", PACKAGE_BUGREPORT);
+    printf("\n%s's homepage: %s\n\n", PACKAGE_NAME, PACKAGE_URL);
     exit(EX_USAGE);
 }
 
