@@ -61,6 +61,25 @@ test_shuffle_round()
 }
 
 void
+test_shuffle_rounds()
+{
+    int i, runs;
+    struct std_deck deck1, deck2;
+    deck1 = build_new_deck();
+    deck2 = build_new_deck();
+    runs = 0;
+
+    shuffle(&deck1, 10);
+    for (i = 0; i < DECK_SIZE; ++i) {
+        if (cards_eq(&deck1.cards[i], &deck2.cards[i]))
+            runs++;
+    }
+    
+    /* no more than 1% of cards can be in the same position */
+    CU_ASSERT(runs < (0.10 * (double)DECK_SIZE));
+}
+
+void
 test_deck_pop()
 {
     int i;
