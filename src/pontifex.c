@@ -98,7 +98,6 @@ card_value(struct card_s *card)
     else
         val = card->face;
 
-    printf("card value: %d\n", val);
     return val;
 }
 
