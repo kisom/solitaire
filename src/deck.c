@@ -34,6 +34,17 @@ build_new_deck() {
     return deck;
 }
 
+int 
+deck_seek(struct std_deck *deck, struct card_s *card)
+{
+    int position = 0;
+    
+    while (! cards_eq(&deck->cards[position], card))
+        position++;
+
+    return position;
+}
+
 void shuffle_round(struct std_deck *deck) {
     struct card_s temporary_card;
     int i, j;

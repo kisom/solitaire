@@ -50,12 +50,15 @@ struct std_deck {
  * function prototypes 
  */
 struct std_deck build_new_deck(void);
+
+int deck_seek(struct std_deck *, struct card_s *);
+
 void shuffle_round(struct std_deck*);
 void shuffle(struct std_deck*, int); 
-int deck_is_valid(struct std_deck *);
-
 struct card_s deck_pop(struct std_deck *);
 void deck_shift_down(struct std_deck *, int, int);
+
+int deck_is_valid(struct std_deck *);
 void dump_deck(struct std_deck *);
 
 #endif
