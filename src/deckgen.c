@@ -9,14 +9,21 @@
  ****************************************************************************/
 
 #include <fcntl.h>
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+/*#include <unistd.h>*/
 
 #include "card.h"
 #include "deck.h"
 
-static int store_deck(struct std_deck *, char *);
+#include "config.h"
+
+static int  store_deck(struct std_deck *, char *);
+static void deckgen_usage(void);
+static void deckgen_version(void);
+
+extern char *__progname;
 
 int
 main(int argc, char **argv)
@@ -25,19 +32,38 @@ main(int argc, char **argv)
     char *filename = NULL;
     struct std_deck deck;
 
-    while ((ch = getopt(argc, argv, "n:o:")) != -1) {
+    /* options descriptor */
+    static struct option longopts[] = {
+            { "help",      no_argument,        NULL,   'h' },
+            { "version",   no_argument,        NULL,   'v' },
+            { "numrounds", required_argument,  NULL,   'n' },
+            { NULL,        0,                  NULL,   0 }
+    };
+
+    while ((ch = getopt_long(argc, argv, "hn:v", longopts, NULL)) != -1) {
         switch (ch) {
+            case 'h':
+                deckgen_usage();
+                break;
             case 'n':
                 rounds = atoi(optarg);
-            case 'o':
-                filename = optarg;
+                break;
+            case 'v':
+                deckgen_version();
+                break;
+            default:
+                /* should not be here */
                 break;
         }
     }
     
+    argc -= optind;
+    argv += optind;
+
+    filename = argv[0];
+    
     if (NULL == filename) {
-        fprintf(stderr, "need to specify a filename with -o!\n");
-        exit(EXIT_FAILURE);
+        deckgen_usage();
     }
 
     printf("getting a new deck and shuffing %d times...\n", rounds);
@@ -74,4 +100,28 @@ store_deck(struct std_deck *deck, char *filename)
         status = EXIT_SUCCESS;
 
     return status;
+}
+
+void
+deckgen_usage()
+{
+    printf("usage: %s [options] filename\n", __progname);
+    printf("\noptions:\n\t--help, -h\t\tprint this usage message\n");
+    printf("\t--numrounds, -n <int>\tspecify number of rounds to ");
+    printf("shuffle the deck\n");
+    printf("\t--version, -v\t\tshow the version, author, and license\n");
+    printf("\n\n\tfilename\t\tthe filename to store the deck to.\n");
+    printf("\n\tReport bugs to: %s", PACKAGE_BUGREPORT);
+    printf("\n\t%s's homepage: %s\n", PACKAGE_NAME, PACKAGE_URL);
+    exit(EXIT_SUCCESS);
+}
+
+void 
+deckgen_version()
+{
+    printf("%s\n", PACKAGE_STRING);
+    printf("%s\n", PACKAGE_COPYRIGHT);
+    printf("%s %s\n", PACKAGE_LICENSE, PACKAGE_LICENSE_URL);
+
+    exit(EXIT_SUCCESS);
 }
