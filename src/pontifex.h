@@ -44,5 +44,8 @@
 
 struct std_deck *load_deck_from_file(char *);
 int card_value(struct card_s *);
+void round1(struct std_deck *);
+void round2(struct std_deck *);
+
 
 #endif

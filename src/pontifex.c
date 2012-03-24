@@ -102,3 +102,25 @@ card_value(struct card_s *card)
     return val;
 }
 
+void
+round1(struct std_deck *deck)
+{
+    struct card_s joker;
+    int position;
+        
+    joker = card_read((char *)"OA");
+    position = deck_seek(deck, &joker);
+    deck_shift_down(deck, position, 1);
+}
+
+void
+round2(struct std_deck *deck)
+{
+    struct card_s joker;
+    int position;
+        
+    joker = card_read((char *)"OB");
+    position = deck_seek(deck, &joker);
+    deck_shift_down(deck, position, 2);
+}
+
