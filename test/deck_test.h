@@ -55,6 +55,7 @@ void test_shuffle_rounds(void);
 void test_deck_pop(void);
 void test_shift_down(void);
 void test_deck_seek(void);
+void test_deck_wrap(void);
 
 /* other functions */
 void destroy_test_registry(void);

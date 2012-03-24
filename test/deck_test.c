@@ -119,7 +119,7 @@ test_shift_down()
 }
 
 void 
-test_deck_seek(void)
+test_deck_seek()
 {
     struct std_deck deck1;
     struct card_s card;
@@ -134,6 +134,25 @@ test_deck_seek(void)
     card = card_read((char *)"OB");
     position = deck_seek(&deck1, &card);
     CU_ASSERT((DECK_SIZE - 1) == position);
+}
+
+void test_deck_wrap()
+{
+    struct std_deck deck1;
+    struct card_s seek_card, top_card;
+    int position;
+
+    deck1 = build_new_deck();
+    seek_card = card_read((char *)"OA");
+    position = deck_seek(&deck1, &seek_card);
+    deck_shift_down(&deck1, position, 2);
+
+    top_card = deck_pop(&deck1);
+    CU_ASSERT(cards_eq(&top_card, &seek_card));
+    CU_ASSERT(deck_is_valid(&deck1));
+
+    position = deck_seek(&deck1, &seek_card);
+    CU_ASSERT(cards_eq(&seek_card, &deck1.cards[DECK_SIZE - 1]));
 }
 
 /*
@@ -190,6 +209,9 @@ main(void)
 
     if (NULL == CU_add_test(deck_suite, "test of deck_shift_down",
                            test_shift_down))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(deck_suite, "test deck wrapping", test_deck_wrap))
         destroy_test_registry();
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
