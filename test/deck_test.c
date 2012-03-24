@@ -37,7 +37,6 @@ test_create_deck()
         CU_ASSERT(cards_eq(&deck1.cards[i], &card));
     }
 
-    printf("testing deck validity\n");
     CU_ASSERT(deck_is_valid(&deck1));
     CU_ASSERT(deck_is_valid(&deck2));
 }
@@ -57,7 +56,8 @@ test_shuffle_round()
             runs++;
     }
     
-    CU_ASSERT(runs == 0);
+    /* no more than 1% of cards can be in the same position */
+    CU_ASSERT(runs < (0.10 * (double)DECK_SIZE));
 }
 
 void
