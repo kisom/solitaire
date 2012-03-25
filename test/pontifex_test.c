@@ -64,6 +64,31 @@ test_card_value()
     CU_ASSERT(-1 == card_value(&cardNO));
 }
 
+void
+test_card_cut_value()
+{
+    struct card_s card49 = card_read((char *)"0S");
+    struct card_s card16 = card_read((char *)"3D");
+    struct card_s card44 = card_read((char *)"5S");
+    struct card_s card02 = card_read((char *)"2C");
+    struct card_s card14 = card_read((char *)"AD");
+    struct card_s card33 = card_read((char *)"7H");
+    struct card_s card53 = card_read((char *)"OA");
+    struct card_s card19 = card_read((char *)"6D");
+    struct card_s cardNO = card_read((char *)"FF");
+
+    CU_ASSERT(49 == card_cut_value(&card49));
+    CU_ASSERT(16 == card_cut_value(&card16));
+    CU_ASSERT(44 == card_cut_value(&card44));
+    CU_ASSERT( 2 == card_cut_value(&card02));
+    CU_ASSERT(14 == card_cut_value(&card14));
+    CU_ASSERT(33 == card_cut_value(&card33));
+    CU_ASSERT(53 == card_cut_value(&card53));
+    CU_ASSERT(19 == card_cut_value(&card19));
+    CU_ASSERT(-1 == card_cut_value(&cardNO));
+}
+
+
 void 
 test_round1()
 {
@@ -129,7 +154,7 @@ test_round3_little_high()
     struct card_s little_joker, big_joker;
     char *test_deck1 = NULL;
     char *test_deck2 = NULL;
-    int i, fails, ret, joker1pos, joker2pos;
+    int i, ret, joker1pos, joker2pos;
 
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test3.deck");
     deck1 = load_deck_from_file(test_deck1);
@@ -152,20 +177,8 @@ test_round3_little_high()
     CU_ASSERT(joker1pos == joker2pos);
 
     CU_ASSERT(deck_is_valid(deck1));
-    fails = 0;
-    for (i = 0; i < DECK_SIZE; ++i) {
-        if (!cards_eq(&deck1->cards[i], &deck2->cards[i]))
-            fails++;
+    for (i = 0; i < DECK_SIZE; ++i)
         CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
-    }
-
-    if (fails > 0) {
-        printf("\n");
-        dump_deck(deck1);
-        printf("\n");
-        dump_deck(deck2);
-    }
-
 
     free(deck1);
     free(deck2);
@@ -188,7 +201,7 @@ test_round3_big_high()
     struct card_s little_joker, big_joker;
     char *test_deck1 = NULL;
     char *test_deck2 = NULL;
-    int i, fails, ret, joker1pos, joker2pos;
+    int i, ret, joker1pos, joker2pos;
 
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test2.deck");
     deck1 = load_deck_from_file(test_deck1);
@@ -211,20 +224,8 @@ test_round3_big_high()
     CU_ASSERT(joker1pos == joker2pos);
 
     CU_ASSERT(deck_is_valid(deck1));
-    fails = 0;
-    for (i = 0; i < DECK_SIZE; ++i) {
-        if (!cards_eq(&deck1->cards[i], &deck2->cards[i]))
-            fails++;
+    for (i = 0; i < DECK_SIZE; ++i)
         CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
-    }
-
-    if (fails > 0) {
-        printf("\n");
-        dump_deck(deck1);
-        printf("\n");
-        dump_deck(deck2);
-    }
-
 
     free(deck1);
     free(deck2);
@@ -243,7 +244,7 @@ test_round4()
     struct std_deck *deck1, *deck2;
     char *test_deck1 = NULL;
     char *test_deck2 = NULL;
-    int i, fails, ret;
+    int i, ret;
 
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test4.deck");
     deck1 = load_deck_from_file(test_deck1);
@@ -256,20 +257,8 @@ test_round4()
     pontifex_round4(deck1);
 
     CU_ASSERT(deck_is_valid(deck1));
-    fails = 0;
-    for (i = 0; i < DECK_SIZE; ++i) {
-        if (!cards_eq(&deck1->cards[i], &deck2->cards[i]))
-            fails++;
+    for (i = 0; i < DECK_SIZE; ++i)
         CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
-    }
-
-    if (fails > 0) {
-        printf("\n");
-        dump_deck(deck1);
-        printf("\n");
-        dump_deck(deck2);
-    }
-
 
     free(deck1);
     free(deck2);
@@ -329,6 +318,10 @@ main(void)
 
     if (NULL == CU_add_test(pontifex_suite, "test of card value", 
                             test_card_value))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test of card cut value", 
+                            test_card_cut_value))
         destroy_test_registry();
 
     if (NULL == CU_add_test(pontifex_suite, "test round1", test_round1))

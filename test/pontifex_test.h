@@ -42,6 +42,7 @@ int cleanup_pontifex_test(void);
 /* test declarations */
 void test_load_deck(void);
 void test_card_value(void);
+void test_card_cut_value(void);
 void test_round1(void);
 void test_round2(void);
 void test_round3_little_high(void);
