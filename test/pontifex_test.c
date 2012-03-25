@@ -8,6 +8,9 @@
  * header files or the file "LICENSE" (or COPYING) under the project root.  *
  ****************************************************************************/
 
+/* need to define _GNU_SOURCE in Linux before loading stdlib */
+#include "config.h"
+
 #include <CUnit/CUnit.h>
 #include "CUnit/Basic.h"
 #include <stdio.h>
@@ -17,7 +20,6 @@
 #include "deck.h"
 #include "pontifex.h"
 #include "pontifex_test.h"
-#include "config.h"
 
 /*
  * the unit tests
