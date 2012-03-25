@@ -211,3 +211,20 @@ pontifex_round3(struct std_deck *deck)
     for (i = 0; i < DECK_SIZE; ++i)
         deck->cards[i] = cut_deck.cards[i];
 }
+
+/*
+ * Perform a count cut. Look at the bottom card. Convert it into a number from
+ * 1 through 53. (Use the bridge order of suits: clubs, diamonds, hearts, and
+ * spades. If the card is a (club), it is the value shown. If the card is a
+ * (diamond), it is the value plus 13. If it is a (heart), it is the value
+ * plus 26. If it is a (spade), it is the value plus 39. Either joker is a 53.)
+ * Count down from the top card that number. (I generally count 1 through 13
+ * again and again if I have to; it's easier than counting to high numbers
+ * sequentially.) Cut after the card that you counted down to, leaving the
+ * bottom card on the bottom.
+ */
+void
+pontifex_round4(struct std_deck *deck)
+{
+    deck_is_valid(deck);
+}
