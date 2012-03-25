@@ -30,5 +30,17 @@ AC_DEFINE([PACKAGE_COPYRIGHT],
           [copyright tagline])
 
 
+dnl check for libcunit
+AC_SEARCH_LIBS([CU_initialize_registry], [cunit], 
+               [have_cunit="yes"], [have_cunit="no"])
+
+if test "x${have_cunit}" = xno; then
+    CANNOT_TEST_WARN = "
+    CUnit not found; this is required for the unit tests. You will not 
+    be able to run the test suite!
+    "
+    AC_MSG_WARN([${CANNOT_TEST_WARN}])
+fi
+
 AC_OUTPUT
 
