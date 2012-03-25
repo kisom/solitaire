@@ -101,6 +101,34 @@ card_value(struct card_s *card)
     return val;
 }
 
+int
+card_cut_value(struct card_s *card)
+{
+    int value = 0;
+
+    if (card->face == JOKER)
+        value = 53;
+    else
+        value = card->face;
+
+    switch (card->suite) {
+        case DIAMOND:
+            value += 13;
+            break;
+        case HEART:
+            value += 26;
+            break;
+        case SPADE:
+            value += 39;
+            break;
+        default:
+            /* jokers and clubs shouldn't be changed */
+            break;
+    }
+
+    return value;
+}
+
 /*
  * Find the A joker. Move it one card down. (That is, swap it with the card 
  * beneath it.)
