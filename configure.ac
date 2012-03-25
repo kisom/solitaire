@@ -14,6 +14,8 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
 
+LD_FLAGS=-L/usr/local/lib
+
 dnl need to define _GNU_SOURCE on Linux machines to enable asprintf
 if test "x${host_os%-gnu}" = xlinux; then
     AC_DEFINE([_GNU_SOURCE], [], [Linux requires _GNU_SOURCE for asprintf])
