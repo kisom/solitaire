@@ -8,10 +8,16 @@ AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/card.h])
 AC_CHECK_HEADERS
 AC_CONFIG_HEADERS([src/config.h])
+AC_CANONICAL_HOST
 AC_CONFIG_FILES(test/Makefile doc/Makefile src/Makefile Makefile)
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
+
+dnl need to define _GNU_SOURCE on Linux machines to enable asprintf
+if test "x${host_os%-gnu}" = xlinux; then
+    AC_DEFINE([_GNU_SOURCE], [], [Linux requires _GNU_SOURCE for asprintf])
+fi
 
 dnl set up some additional useful macros
 AC_DEFINE([PACKAGE_LICENSE], ["License ISC/public domain:"],
