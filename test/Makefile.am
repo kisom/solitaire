@@ -2,7 +2,8 @@ AM_CFLAGS = -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations   \
             -Wredundant-decls -Wnested-externs -Winline -Wno-long-long    \
             -Wstrict-prototypes -Werror -fprofile-arcs -ftest-coverage    \
-	    -fprofile-generate -g -I../src/ -p -pg -O0
+	    -fprofile-generate -g -I../src/ -I/usr/local/include -p -pg   \
+	    -O0
 AM_LDFLAGS = -fprofile-arcs -ftest-coverage -L/usr/local/lib -lcunit -lgcov
 pontifex_test_CFLAGS = -DPONTIFEX_TEST_VECTORS=\"@abs_builddir@/vectors\" \
 		       $(AM_CFLAGS)
