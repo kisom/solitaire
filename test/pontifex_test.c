@@ -237,6 +237,52 @@ test_round3_big_high()
     return;
 }
 
+void 
+test_round4()
+{
+    struct std_deck *deck1, *deck2;
+    char *test_deck1 = NULL;
+    char *test_deck2 = NULL;
+    int i, fails, ret;
+
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test4.deck");
+    deck1 = load_deck_from_file(test_deck1);
+    CU_ASSERT(deck_is_valid(deck1));
+
+    ret = asprintf(&test_deck2, "%s/%s", PONTIFEX_TEST_VECTORS, "test4b.deck");
+    deck2 = load_deck_from_file(test_deck2);
+    CU_ASSERT(deck_is_valid(deck2));
+
+    pontifex_round4(deck1);
+
+    CU_ASSERT(deck_is_valid(deck1));
+    fails = 0;
+    for (i = 0; i < DECK_SIZE; ++i) {
+        if (!cards_eq(&deck1->cards[i], &deck2->cards[i]))
+            fails++;
+        CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
+    }
+
+    if (fails > 0) {
+        printf("\n");
+        dump_deck(deck1);
+        printf("\n");
+        dump_deck(deck2);
+    }
+
+
+    free(deck1);
+    free(deck2);
+    free(test_deck1);
+    free(test_deck2);
+    deck1 = NULL;
+    deck2 = NULL;
+    test_deck1 = NULL;
+    test_deck2 = NULL;
+    return;
+}
+
+
 /*
  * suite set up functions
  */
@@ -297,6 +343,9 @@ main(void)
 
     if (NULL == CU_add_test(pontifex_suite, "test round3 / big high", 
                             test_round3_big_high))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test round4", test_round4))
         destroy_test_registry();
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
