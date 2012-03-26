@@ -13,6 +13,7 @@
 
 #include <CUnit/CUnit.h>
 #include "CUnit/Basic.h"
+#include <err.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -301,24 +302,41 @@ test_round5()
 void 
 test_round()
 {
-    struct std_deck *deck1;
-    char *test_deck1 = NULL;
-    int expected, output, ret;
+    struct std_deck *deck1, *deck2;
+    char *test_deck1 = NULL, *test_deck2 = NULL;
+    int i, expected, output, ret;
 
-    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test4.deck");
+    warnx("start read deck files");
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test5.deck");
     deck1 = load_deck_from_file(test_deck1);
     CU_ASSERT(deck_is_valid(deck1));
 
-    expected = 3;
+    warnx("deck1...");
+
+    ret = asprintf(&test_deck2, "%s/%s", PONTIFEX_TEST_VECTORS, "test5b.deck");
+    deck2 = load_deck_from_file(test_deck2);
+    CU_ASSERT(deck_is_valid(deck2));
+    warnx("end read deck files");
+
+    expected = 4;   /* in the test vector, the output card is 4 (clubs) */
     output = pontifex_round(deck1);
 
     CU_ASSERT(deck_is_valid(deck1));
     CU_ASSERT(output == expected);
+    if (output != expected)
+        warnx("\nexpected %d but got %d!", expected, output);
+
+    for (i = 0; i < DECK_SIZE; ++i)
+        CU_ASSERT(cards_eq(&deck1->cards[i], &deck2->cards[i]));
 
     free(deck1);
+    free(deck2);
     free(test_deck1);
+    free(test_deck2);
     deck1 = NULL;
+    deck2 = NULL;
     test_deck1 = NULL;
+    test_deck2 = NULL;
     return;
 }
 
