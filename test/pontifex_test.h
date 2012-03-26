@@ -49,6 +49,7 @@ void test_round3_little_high(void);
 void test_round3_big_high(void);
 void test_round4(void);
 void test_round5(void);
+void test_round(void);
 
 /* other functions */
 void destroy_test_registry(void);
