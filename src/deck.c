@@ -10,8 +10,10 @@
  ****************************************************************************/
 
 #include <err.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sysexits.h>
 #include "deck.h"
 #include "util.h"
 
@@ -22,6 +24,15 @@ static char new_deck[54][3] = {
     "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "0D", "JD", "QD", "KD",
     "AS", "AC", "AH", "AD", "OA", "OB"
 };
+static void destroy_ptr(void *);
+
+void
+destroy_ptr(void *ptr)
+{
+    free(ptr);
+    ptr = NULL;
+}
+
 
 struct std_deck 
 build_new_deck() {
@@ -33,6 +44,94 @@ build_new_deck() {
 
     return deck;
 }
+
+
+struct std_deck *
+load_deck_from_file(char *filename)
+{
+    FILE *stream = NULL;
+    struct std_deck *deck;
+    char *buffer, *buf_head;
+    int i;
+    size_t read_size;
+
+    deck = calloc(1, sizeof(struct std_deck));
+    buffer = calloc((DECK_SIZE * 3) + 1, sizeof(char));
+    if ((NULL == calloc) || (NULL == buffer)) {
+        perror("calloc");
+        err(EX_OSERR, "fatal memory allocation error!\n");
+    }   
+
+    stream = fopen(filename, "r");
+    if (NULL == stream) {
+        destroy_ptr(deck);
+        destroy_ptr(buffer);
+        perror("fopen");
+        err(EX_NOINPUT, "could not open %s\n", filename);
+    }
+
+    read_size = fread(buffer, sizeof(char), DECK_SIZE * 3, stream);
+    if (read_size < (DECK_SIZE * 3)) {
+        destroy_ptr(deck);
+        destroy_ptr(buffer);       
+        err(EX_DATAERR, "short read: %u instead of %u!\n",
+                (unsigned int)read_size,
+                (unsigned int)DECK_SIZE * 3);
+    }
+
+    for (i = 0; i < (DECK_SIZE * 3); ++i)
+        if (buffer[i] == 0x0a)
+            buffer[i] = 0x00;
+    buf_head = buffer;
+
+    for (i = 0; i < DECK_SIZE; ++i) {
+        deck->cards[i] = card_read(buf_head);
+        buf_head += 3;
+    }
+    
+    free(buffer);
+    buffer = NULL;
+    buf_head = NULL;
+
+    if (!deck_is_valid(deck)) {
+        warnx("invalid deck!");
+        free(deck);
+        deck = NULL;
+    }
+
+    return deck;
+}
+
+
+int
+store_deck_to_file(struct std_deck *deck, char *filename)
+{
+    char card[3];
+    int i;
+    int status = EXIT_FAILURE;
+    FILE *fstream;
+
+    fstream = fopen(filename, "w");
+    if (NULL == fstream) {
+        perror("fopen");
+        return status;
+    }
+
+    for (i = 0; i < DECK_SIZE; ++i) {
+        card[0] = 0x0;
+        card[1] = 0x0;
+        card_str(deck->cards[i], card);
+        fprintf(fstream, "%s\n", card);
+    }
+
+    if (-1 == fclose(fstream))
+        perror("fclose");
+    else
+        status = EXIT_SUCCESS;
+
+    return status;
+}
+
 
 int 
 deck_seek(struct std_deck *deck, struct card_s *card)
@@ -144,3 +243,5 @@ dump_deck(struct std_deck *deck)
     }
     printf("\n");
 }
+    
+

@@ -50,6 +50,8 @@ struct std_deck {
  * function prototypes 
  */
 struct std_deck build_new_deck(void);
+struct std_deck *load_deck_from_file(char *);
+int store_deck_to_file(struct std_deck *, char *);
 
 int deck_seek(struct std_deck *, struct card_s *);
 

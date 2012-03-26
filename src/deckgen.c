@@ -19,7 +19,6 @@
 
 #include "config.h"
 
-static int  store_deck(struct std_deck *, char *);
 static void deckgen_usage(void);
 static void deckgen_version(void);
 
@@ -72,38 +71,9 @@ main(int argc, char **argv)
     printf("DECK:\n-----\n");
     dump_deck(&deck);
 
-    retcode = store_deck(&deck, filename);
+    retcode = store_deck_to_file(&deck, filename);
 
     return retcode;
-}
-
-int
-store_deck(struct std_deck *deck, char *filename)
-{
-    char card[3];
-    int i;
-    int status = EXIT_FAILURE;
-    FILE *fstream;
-
-    fstream = fopen(filename, "w");
-    if (NULL == fstream) {
-        perror("fopen");
-        return status;
-    }
-
-    for (i = 0; i < DECK_SIZE; ++i) {
-        card[0] = 0x0;
-        card[1] = 0x0;
-        card_str(deck->cards[i], card);
-        fprintf(fstream, "%s\n", card);
-    }
-
-    if (-1 == fclose(fstream))
-        perror("fclose");
-    else
-        status = EXIT_SUCCESS;
-
-    return status;
 }
 
 void

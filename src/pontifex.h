@@ -42,7 +42,6 @@
  * function declarations
  */
 
-struct std_deck *load_deck_from_file(char *);
 int card_value(struct card_s *);
 int card_cut_value(struct card_s *);
 void pontifex_round1(struct std_deck *);
