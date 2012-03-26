@@ -49,5 +49,6 @@ void pontifex_round1(struct std_deck *);
 void pontifex_round2(struct std_deck *);
 void pontifex_round3(struct std_deck *);
 void pontifex_round4(struct std_deck *);
+struct card_s pontifex_round5(struct std_deck *);
 
 #endif

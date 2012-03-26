@@ -249,3 +249,28 @@ pontifex_round4(struct std_deck *deck)
         deck->cards[i] = cut_deck.cards[i];
 
 }
+
+/*
+ * Find the output card. Look at the top card. Convert it into a number from 1
+ * through 53, in the same manner as above. Count down that many cards. (Count
+ * the top card as number one.) Write the card after the one you counted to on
+ * a piece of paper. (If you hit a joker, don't write anything down and start
+ * over again with step 1.) This is the first output card. Note that this step
+ * does not modify the state of the deck.
+ */
+struct card_s
+pontifex_round5(struct std_deck *deck)
+{
+    struct card_s output_card;
+    int output_card_val;
+
+    output_card_val = card_cut_value(&deck->cards[0]);
+    output_card = deck->cards[output_card_val];
+
+    if (output_card.face == JOKER) {
+        output_card.face  = INVALID_FACE;
+        output_card.suite = INVALID_SUITE;
+    }
+
+    return output_card;
+}

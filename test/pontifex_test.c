@@ -279,7 +279,7 @@ test_round5()
     struct std_deck *deck1;
     struct card_s output_card, expected_output_card;
     char *test_deck1 = NULL;
-    int i, ret;
+    int ret;
 
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test4.deck");
     deck1 = load_deck_from_file(test_deck1);
