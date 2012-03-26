@@ -226,5 +226,19 @@ pontifex_round3(struct std_deck *deck)
 void
 pontifex_round4(struct std_deck *deck)
 {
-    deck_is_valid(deck);
+    struct std_deck cut_deck;
+    int cut_value, i, deck_position;
+
+    cut_value = card_cut_value(&deck->cards[DECK_SIZE - 1]);
+    deck_position = 0;
+
+    for (i = cut_value; i < (DECK_SIZE - 1); ++i)
+        cut_deck.cards[deck_position++] = deck->cards[i];
+
+    for (i = 0; i < cut_value; ++i)
+        cut_deck.cards[deck_position++] = deck->cards[i];
+
+    for (i = 0; i < (DECK_SIZE - 1); ++i)
+        deck->cards[i] = cut_deck.cards[i];
+
 }
