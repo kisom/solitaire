@@ -105,8 +105,21 @@ test_letter_value()
     int i;
 
     for (i = 0; i < 71; ++i)
-        CU_ASSERT(values[i] == letter_value(alphabet[i]));
+        CU_ASSERT(values[i] == pontifex_letter_value(alphabet[i]));
 
+}
+
+void 
+test_value_letter()
+{
+    char alphabet[71] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int value;
+
+    for (value = 1; value < 26; ++value)
+        CU_ASSERT(alphabet[value] == pontifex_value_letter(value));
+
+    while (++value < DECK_SIZE)
+        CU_ASSERT(0x00 == pontifex_value_letter(value));
 }
 
 
@@ -408,8 +421,12 @@ main(void)
                             test_card_cut_value))
         destroy_test_registry();
 
-    if (NULL == CU_add_test(pontifex_suite, "test letter value", 
+    if (NULL == CU_add_test(pontifex_suite, "test letter to value",
                             test_letter_value))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test value to letter",
+                            test_value_letter))
         destroy_test_registry();
 
     if (NULL == CU_add_test(pontifex_suite, "test round1", test_round1))
