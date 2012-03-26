@@ -284,7 +284,12 @@ pontifex_round(struct std_deck *deck)
     struct card_s output_card;
     int value;
 
-    output_card = deck->cards[0];
+    pontifex_round1(deck);
+    pontifex_round2(deck);
+    pontifex_round3(deck);
+    pontifex_round4(deck);
+
+    output_card = pontifex_round5(deck);
     value = card_value(&output_card);
     return value;
 }
