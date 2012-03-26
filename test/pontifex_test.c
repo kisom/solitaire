@@ -115,8 +115,8 @@ test_value_letter()
     char alphabet[71] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int value;
 
-    for (value = 1; value < 26; ++value)
-        CU_ASSERT(alphabet[value] == pontifex_value_letter(value));
+    for (value = 0; value < 26; ++value)
+        CU_ASSERT(alphabet[value] == pontifex_value_letter(value + 1));
 
     while (++value < DECK_SIZE)
         CU_ASSERT(0x00 == pontifex_value_letter(value));
