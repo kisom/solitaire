@@ -273,6 +273,31 @@ test_round4()
     return;
 }
 
+void 
+test_round5()
+{
+    struct std_deck *deck1;
+    struct card_s output_card, expected_output_card;
+    char *test_deck1 = NULL;
+    int i, ret;
+
+    ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test4.deck");
+    deck1 = load_deck_from_file(test_deck1);
+    CU_ASSERT(deck_is_valid(deck1));
+
+    expected_output_card = card_read((char *)"QC");
+    output_card = pontifex_round5(deck1);
+
+    CU_ASSERT(deck_is_valid(deck1));
+    CU_ASSERT(cards_eq(&output_card, &expected_output_card));
+
+    free(deck1);
+    free(test_deck1);
+    deck1 = NULL;
+    test_deck1 = NULL;
+    return;
+}
+
 
 /*
  * suite set up functions
@@ -341,6 +366,9 @@ main(void)
         destroy_test_registry();
 
     if (NULL == CU_add_test(pontifex_suite, "test round4", test_round4))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test round5", test_round5))
         destroy_test_registry();
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
