@@ -176,6 +176,9 @@ deck_is_valid(struct std_deck *deck)
     int valid = 1;
     int i, j, matches;
 
+    if (NULL == deck)
+        return 0;
+
     for (i = 0; i < DECK_SIZE; i++) {
         if (!card_is_valid(&deck->cards[i])) {
             warnx("invalid card!");
