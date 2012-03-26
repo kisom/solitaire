@@ -71,6 +71,36 @@ card_cut_value(struct card_s *card)
     return value;
 }
 
+int 
+pontifex_letter_value(char letter)
+{
+    int value;
+
+    if (letter > 'z')
+        value = 0;
+    else if (letter >= 'a')
+        value = letter - 0x60;
+    else if (letter > 'Z')
+        value = 0;
+    else if (letter >= 'A')
+        value = letter - 0x40;
+    else
+        value = 0;
+
+    return value;
+}
+
+char
+pontifex_value_letter(int value)
+{
+    char letter = 0x00;
+
+    if ((value > 0) && (value < 27))
+        letter = value + 0x40;
+
+    return letter;
+}
+
 /*
  * Find the A joker. Move it one card down. (That is, swap it with the card 
  * beneath it.)

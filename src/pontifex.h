@@ -42,13 +42,15 @@
  * function declarations
  */
 
-int card_value(struct card_s *);
-int card_cut_value(struct card_s *);
+int  card_value(struct card_s *);
+int  card_cut_value(struct card_s *);
+int  pontifex_letter_value(char);
+char pontifex_value_letter(int);
 void pontifex_round1(struct std_deck *);
 void pontifex_round2(struct std_deck *);
 void pontifex_round3(struct std_deck *);
 void pontifex_round4(struct std_deck *);
 struct card_s pontifex_round5(struct std_deck *);
-int pontifex_round(struct std_deck *);
+int  pontifex_round(struct std_deck *);
 
 #endif
