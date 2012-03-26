@@ -276,13 +276,15 @@ pontifex_round5(struct std_deck *deck)
 }
 
 /*
- * carry out steps 1-5
+ * carry out steps 1-6
  */
-struct card_s
+int
 pontifex_round(struct std_deck *deck)
 {
     struct card_s output_card;
+    int value;
 
     output_card = deck->cards[0];
-    return output_card;
+    value = card_value(&output_card);
+    return value;
 }

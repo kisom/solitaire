@@ -302,19 +302,18 @@ void
 test_round()
 {
     struct std_deck *deck1;
-    struct card_s output_card, expected_output_card;
     char *test_deck1 = NULL;
-    int ret;
+    int expected, output, ret;
 
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test4.deck");
     deck1 = load_deck_from_file(test_deck1);
     CU_ASSERT(deck_is_valid(deck1));
 
-    expected_output_card = card_read((char *)"3D");
-    output_card = pontifex_round(deck1);
+    expected = 3;
+    output = pontifex_round(deck1);
 
     CU_ASSERT(deck_is_valid(deck1));
-    CU_ASSERT(cards_eq(&output_card, &expected_output_card));
+    CU_ASSERT(output == expected);
 
     free(deck1);
     free(test_deck1);
