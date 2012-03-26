@@ -85,6 +85,13 @@ destroy_ptr(void *ptr)
     ptr = NULL;
 }
 
+/*
+ * Convert the card to a number. As before, use the bridge suits to order
+ * them: From lowest to highest, we have clubs, diamonds, hearts, and spades.
+ * Hence, A(clubs) through K(clubs) is 1 through 13, A(diamonds) through
+ * K(diamonds) is 14 through 26, A(hearts) through K(hearts) is 1 through 13,
+ * and A(spades) through K(spades) is 14 through 26.
+ */
 int 
 card_value(struct card_s *card)
 {
@@ -93,7 +100,7 @@ card_value(struct card_s *card)
         val = -1;
     if (card->face == JOKER)
         val = 0;
-    else if ((card->suite == HEART) || (card->suite == DIAMOND))
+    else if ((card->suite == HEART) || (card->suite == SPADE))
         val = card->face + 13;
     else
         val = card->face;
