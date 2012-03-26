@@ -306,17 +306,14 @@ test_round()
     char *test_deck1 = NULL, *test_deck2 = NULL;
     int i, expected, output, ret;
 
-    warnx("start read deck files");
     ret = asprintf(&test_deck1, "%s/%s", PONTIFEX_TEST_VECTORS, "test5.deck");
     deck1 = load_deck_from_file(test_deck1);
     CU_ASSERT(deck_is_valid(deck1));
 
-    warnx("deck1...");
 
     ret = asprintf(&test_deck2, "%s/%s", PONTIFEX_TEST_VECTORS, "test5b.deck");
     deck2 = load_deck_from_file(test_deck2);
     CU_ASSERT(deck_is_valid(deck2));
-    warnx("end read deck files");
 
     expected = 4;   /* in the test vector, the output card is 4 (clubs) */
     output = pontifex_round(deck1);
