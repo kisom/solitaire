@@ -91,6 +91,24 @@ test_card_cut_value()
     CU_ASSERT(-1 == card_cut_value(&cardNO));
 }
 
+void 
+test_letter_value()
+{
+    char alphabet[71] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                        "1234567890-.?! {}()";
+    int values[71]    = {  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 
+                          14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                           1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 
+                          14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                           0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+                           0,  0,  0,  0,  0,  0};
+    int i;
+
+    for (i = 0; i < 71; ++i)
+        CU_ASSERT(values[i] == letter_value(alphabet[i]));
+
+}
+
 
 void 
 test_round1()
@@ -388,6 +406,10 @@ main(void)
 
     if (NULL == CU_add_test(pontifex_suite, "test of card cut value", 
                             test_card_cut_value))
+        destroy_test_registry();
+
+    if (NULL == CU_add_test(pontifex_suite, "test letter value", 
+                            test_letter_value))
         destroy_test_registry();
 
     if (NULL == CU_add_test(pontifex_suite, "test round1", test_round1))
